@@ -2,7 +2,7 @@ dependencies:
   faker: 5.5.3
   fastify: 3.27.2
   fastify-formbody: 5.2.0
-  sqlite: 4.0.23
+  sqlite: 4.0.25
   sqlite3: 5.0.2
 packages:
   /@fastify/ajv-compiler/1.1.0:
@@ -996,10 +996,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-LRHh/A8tpW7ru89lrlkU4AszXt1dbwSjVWguGrmlxE7tawVmDBlI1PILMkXAxJTwqhgsEeTHzj36D5CmHgQmNg==
-  /sqlite/4.0.23:
+  /sqlite/4.0.25:
     dev: false
     resolution:
-      integrity: sha512-dSdmSkrdIhUL7xP/fiEMfFuAo4dxb0afag3rK8T4Y9lYxE3g3fXT0J8H9qSFvmcKxnM0zEA8yvLbpdWQ8mom3g==
+      integrity: sha512-gqCEcLF8FOTeW/na3SRYWLQkw2jZXgVj1DdgRJbm0jvrhnUgBIuNDUUm649AnBNDNHhI5XskwT8dvc8vearRLQ==
   /sqlite3/5.0.2:
     dependencies:
       node-addon-api: 3.2.0
@@ -1190,5 +1190,5 @@ specifiers:
   faker: ^5.5.3
   fastify: ^3.27.2
   fastify-formbody: ^5.2.0
-  sqlite: ^4.0.23
+  sqlite: ^4.0.25
   sqlite3: ^5.0.2
