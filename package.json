@@ -10,7 +10,7 @@
     "fastify": "^3.28.0",
     "fastify-formbody": "^5.2.0",
     "sqlite": "^4.0.25",
-    "sqlite3": "^5.0.3",
+    "sqlite3": "^5.0.4",
     "faker": "^5.5.3"
   },
   "engines": {
