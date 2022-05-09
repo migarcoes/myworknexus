@@ -10,7 +10,7 @@ const dbFile = "./.data/chat.db";
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require("sqlite3").verbose();
 const dbWrapper = require("sqlite");
-const faker = require("faker");
+const casual = require("casual");
 let db;
 
 //SQLite wrapper for async / await connections https://www.npmjs.com/package/sqlite
@@ -30,7 +30,7 @@ dbWrapper
         for (let r = 0; r < 5; r++)
           await db.run(
             "INSERT INTO Messages (message) VALUES (?)",
-            faker.hacker.phrase()
+            casual.catch_phrase
           );
       }
       console.log(await db.all("SELECT * from Messages"));
