@@ -7,9 +7,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "fastify": "^4.0.3",
+    "fastify": "^4.2.1",
     "sqlite": "^4.1.1",
-    "sqlite3": "^5.0.8",
+    "sqlite3": "^5.0.9",
     "casual": "^1.6.2",
     "@fastify/formbody": "^7.0.1"
   },
