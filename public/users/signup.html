@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro</title>
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+</head>
+<body>
+    <h1>Registro de usuario</h1>
+
+    <form id="signupForm">
+      <div class="form-group">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+    
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstname">First Name:</label>
+          <input type="text" id="firstname" name="firstname" required>
+        </div>
+    
+        <div class="form-group">
+          <label for="lastname">Last Name:</label>
+          <input type="text" id="lastname" name="lastname" required>
+        </div>
+      </div>
+    </div>
+    
+      <div class="form-group">
+        <label for="phonenum">Phone:</label>
+        <div class="form-row">
+          <div class="form-group">
+            <select id="countryCode" name="countryCode">
+              <option value="1">United States (+1)</option>
+              <option value="503">El Salvador (+503)</option>
+              <option value="502">Guatemala (+502)</option>
+              <option value="506">Costa Rica (+506)</option>
+              <option value="505">Nicaragua (+505)</option>
+              <option value="506">Honduras (+506)</option>
+              <option value="507">Panama (+507)</option>
+              <option value="52">Mexico (+52)</option>
+              <option value="34">Spain (+34)</option>
+            </select>
+          </div>
+    
+          <div class="form-group">
+            <input type="text" id="phonenum" name="phonenum" required>
+          </div>
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+    
+      <div class="form-group">
+        <label for="usertype">User Type:</label>
+        <select id="usertype" name="usertype">
+          <option value="contractor">Contractor</option>
+          <option value="worker">Worker</option>
+        </select>
+      </div>
+    
+      <div class="form-row">
+        <div class="form-group">
+          <label for="zipcode">Zip Code:</label>
+          <input type="text" id="zipcode" name="zipcode" required>
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label for="review">Review:</label>
+        <textarea id="review" name="review" required></textarea>
+      </div>
+    
+      <button type="submit">Sign Up</button>
+    </form>
+    
+    
+    
+
+    
+    <a href="/index.html">Volver a la página principal</a>
+<script type="module" src="signup.js"></script>
+</body>
+</html>

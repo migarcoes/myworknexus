@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contrata&Worker - Página de inicio</title>
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    <script>
+        // Verificar si hay una sesión activa
+const sessionActive = localStorage.getItem('sessionActive');
+
+// Redireccionar al usuario a la página de inicio si no hay sesión activa
+if (!sessionActive) {
+  window.location.href = '/index.html';
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido(a) a Contrata&Worker</h1>
+        <p>¡Hola, <span id="username"></span>! Has iniciado sesión correctamente.</p>
+        <nav>
+            <ul>
+                <li><a href="about.html">Acerca de</a></li>
+                <li><a href="profile.html">Mi perfil</a></li>
+                <li><a href="jobsearch.html">Busco trabajo</a></li>
+                <li><a href="workersearch.html">Busco trabajadores</a></li>
+                <li><a href="contact.html">Contactar</a></li>
+                <li><a id="logout-link" href="#">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </div>
+    <a href="../index.html">Volver a la página principal</a>
+    <script src="loggedin.js"></script>
+</body>
+</html>
+

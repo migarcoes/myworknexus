@@ -1,0 +1,155 @@
+/* Reset styles */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Global styles */
+.container {
+  max-width: 95%;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* Form styles */
+form {
+  margin-top: 20px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="submit"],
+button[type="submit"],
+.submit-button {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button[type="submit"]:hover,
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.section-description {
+  font-size: 16px;
+  color: #666;
+}
+
+.contact-form {
+  margin-top: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.form-group {
+  flex: 1;
+  gap: 10px;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #f8f9fa;
+  padding: 10px;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style-type: none;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  flex: 1 0 auto;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  padding: 5px;
+}
+
+/* Main content styles */
+section {
+  margin-top: 20px;
+}
+
+#loggedin-content {
+  /* Styles for content displayed when user is logged in */
+}
+
+/* Footer styles */
+footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+}
+
+/* Media query para pantallas grandes */
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px; /* Puedes ajustar este valor según tus necesidades */
+  }
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 767px) {
+  .container {
+    padding: 10px;
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .nav-item {
+    flex-basis: auto;
+    flex-grow: 1;
+  }
+
+  .nav-link {
+    text-align: center;
+    padding: 5px;
+  }
+}

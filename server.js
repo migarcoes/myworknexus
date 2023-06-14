@@ -1,93 +1,82 @@
-/**
- * This is the main server script that provides the API endpoints
- *
- * Uses sqlite.js to connect to db
- */
+const sqlite3 = require('sqlite3').verbose();
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const fs = require('fs'); 
 
-const fastify = require("fastify")({
-  // Set this to true for detailed logging:
-  logger: false
+const app = express();
+const port = 8000;
+
+// Habilitar CORS
+app.use(cors());
+
+// Configurar el middleware para parsear JSON
+app.use(express.json());
+
+// Configurar la ruta para servir archivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Conexión a la base de datos
+const dbPath = path.join(__dirname, 'users.db');
+const dbExists = fs.existsSync(dbPath);
+
+if (!dbExists) {
+  console.error('El archivo de base de datos no existe');
+  process.exit(1);
+}
+
+const db = new sqlite3.Database(dbPath);
+
+// Manejar la solicitud POST para iniciar sesión
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  
+  // Verificar las credenciales del usuario en la base de datos 
+  const checkCredentialsQuery = `SELECT * FROM users WHERE username = ? AND password = ?`;
+  db.get(checkCredentialsQuery, [username, password], (err, row) => {
+    if (err) {
+      console.error('Error al verificar las credenciales:', err);
+      res.status(500).json({ error: 'Ocurrió un error al verificar las credenciales' });
+    } else if (row) {
+      console.log('Inicio de sesión exitoso:', row);
+      res.status(200).json({ message: 'Inicio de sesión exitoso' });
+    } else {
+      console.log('Credenciales inválidas');
+      res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+  });
 });
 
-fastify.register(require("@fastify/formbody"));
+// Manejar la solicitud POST para agregar un nuevo usuario
+app.post('/signup', (req, res) => {
+  const { username, email, password } = req.body;
 
-const db = require("./sqlite.js");
-const errorMessage =
-  "Whoops! Error connecting to the database–please try again!";
-
-// OnRoute hook to list endpoints
-const routes = { endpoints: [] };
-fastify.addHook("onRoute", routeOptions => {
-  routes.endpoints.push(routeOptions.method + " " + routeOptions.path);
+  // Verificar si el usuario ya existe en la base de datos
+  const checkDuplicateQuery = 'SELECT * FROM users WHERE username = ?';
+  db.get(checkDuplicateQuery, [username], (err, row) => {
+    if (err) {
+      console.error('Error al verificar duplicados:', err);
+      res.status(500).json({ error: 'Ocurrió un error al verificar duplicados' });
+    } else if (row) {
+      console.log('Usuario duplicado:', row);
+      res.status(400).json({ error: 'Ya existe un usuario con el mismo nombre de usuario' });
+    } else {
+      // Insertar el usuario en la base de datos
+      const insertUserQuery = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+      db.run(insertUserQuery, [username, email, password], function (err) {
+        if (err) {
+          console.error('Error al insertar usuario:', err);
+          res.status(500).json({ error: 'Ocurrió un error al agregar el usuario' });
+        } else {
+          console.log('Usuario agregado:', this.lastID);
+          res.json({ message: 'Usuario agregado exitosamente' });
+        }
+      });
+    }
+  });
 });
 
-// Just send some info at the home route
-fastify.get("/", (request, reply) => {
-  const data = {
-    title: "Hello SQLite (blank)",
-    intro: "This is a database-backed API with the following endpoints",
-    routes: routes.endpoints
-  };
-  reply.status(200).send(data);
-});
-
-// Return the chat messages from the database helper script - no auth
-fastify.get("/messages", async (request, reply) => {
-  let data = {};
-  data.chat = await db.getMessages();
-  console.log(data.chat);
-  if(!data.chat) data.error = errorMessage;
-  const status = data.error ? 400 : 200;
-  reply.status(status).send(data);
-});
-
-// Add new message (auth)
-fastify.post("/message", async (request, reply) => {
-  let data = {};
-  const auth = authorized(request.headers.admin_key);
-  if(!auth || !request.body || !request.body.message) data.success = false;
-  else if(auth) data.success = await db.addMessage(request.body.message);
-  const status = data.success ? 201 : auth ? 400 : 401;
-  reply.status(status).send(data);
-});
-
-// Update text for an message (auth)
-fastify.put("/message", async (request, reply) => { 
-  let data = {};
-  const auth = authorized(request.headers.admin_key);
-  if(!auth || !request.body || !request.body.id || !request.body.message) data.success = false;
-  else data.success = await db.updateMessage(request.body.id, request.body.message); 
-  const status = data.success ? 201 : auth ? 400 : 401;
-  reply.status(status).send(data);
-});
-
-// Delete a message (auth)
-fastify.delete("/message", async (request, reply) => {
-  let data = {};
-  const auth = authorized(request.headers.admin_key);
-  if(!auth || !request.query || !request.query.id) data.success = false;
-  else data.success = await db.deleteMessage(request.query.id);
-  const status = data.success ? 201 : auth ? 400 : 401;
-  reply.status(status).send(data);
-});
-
-// Helper function to authenticate the user key
-const authorized = key => {
-  if (
-    !key ||
-    key < 1 ||
-    !process.env.ADMIN_KEY ||
-    key !== process.env.ADMIN_KEY
-  )
-    return false;
-  else return true;
-};
-
-// Run the server and report out to the logs
-fastify.listen({port:process.env.PORT, host:'0.0.0.0'}, function(err, address) {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log(`Your app is listening on ${address}`);
+// Iniciar el servidor
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`);
 });
